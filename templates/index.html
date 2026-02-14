@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hinata Bot | Premium Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="background-blobs">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+
+    <nav class="glass-navbar">
+      <div class="nav-logo">
+        <i class="fas fa-robot"></i>
+        <span>HINATA <span class="v-tag">v2.5</span></span>
+      </div>
+      <div class="nav-status">
+        <span id="bot-status-dot" class="status-dot"></span>
+        <span id="bot-status-text">Connecting...</span>
+      </div>
+    </nav>
+
+    <main class="dashboard-container">
+      <!-- Stats Row -->
+      <section class="stats-grid">
+        <div class="glass-card stat-card">
+          <i class="fas fa-users"></i>
+          <div class="stat-info">
+            <h3>Total Users</h3>
+            <p id="stat-users">0</p>
+          </div>
+        </div>
+        <div class="glass-card stat-card">
+          <i class="fas fa-users-rectangle"></i>
+          <div class="stat-info">
+            <h3>Total Groups</h3>
+            <p id="stat-groups">0</p>
+          </div>
+        </div>
+        <div class="glass-card stat-card">
+          <i class="fas fa-paper-plane"></i>
+          <div class="stat-info">
+            <h3>Broadcasts</h3>
+            <p id="stat-broadcasts">0</p>
+          </div>
+        </div>
+        <div class="glass-card stat-card">
+          <i class="fas fa-clock"></i>
+          <div class="stat-info">
+            <h3>Uptime</h3>
+            <p id="stat-uptime">00:00:00</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Control and Logs Row -->
+      <section class="main-grid">
+        <!-- Control Panel -->
+        <div class="glass-card control-panel">
+          <div class="card-header">
+            <h2><i class="fas fa-sliders-h"></i> Control Center</h2>
+          </div>
+          <div class="control-groups">
+            <div class="control-group">
+              <label>Broadcast Message</label>
+              <textarea
+                id="broadcast-msg"
+                placeholder="Type your announcement here..."
+              ></textarea>
+              <div class="btn-row">
+                <button onclick="sendBroadcast('all')" class="btn btn-primary">
+                  <i class="fas fa-broadcast-tower"></i> Global
+                </button>
+                <button
+                  onclick="sendBroadcast('users')"
+                  class="btn btn-secondary"
+                >
+                  <i class="fas fa-user"></i> Users
+                </button>
+                <button
+                  onclick="sendBroadcast('groups')"
+                  class="btn btn-accent"
+                >
+                  <i class="fas fa-users"></i> Groups
+                </button>
+                <button
+                  onclick="controlBot('delete_broadcast')"
+                  class="btn btn-danger"
+                >
+                  <i class="fas fa-eraser"></i> Delete Last
+                </button>
+              </div>
+            </div>
+            <div class="control-group">
+              <label>System Controls</label>
+              <div class="btn-row">
+                <button
+                  id="power-btn"
+                  onclick="controlBot('toggle_bot')"
+                  class="btn btn-danger"
+                >
+                  <i class="fas fa-power-off"></i> Bot: OFF
+                </button>
+                <button
+                  id="restart-btn"
+                  onclick="controlBot('restart')"
+                  class="btn btn-warning"
+                >
+                  <i class="fas fa-sync"></i> Restart
+                </button>
+                <button
+                  id="access-toggle-btn"
+                  onclick="controlBot('toggle_access')"
+                  class="btn btn-primary"
+                >
+                  <i class="fas fa-lock-open"></i> Public: ON
+                </button>
+                <button
+                  id="clear-logs-btn"
+                  onclick="controlBot('clear_logs')"
+                  class="btn btn-danger"
+                >
+                  <i class="fas fa-trash-alt"></i> Clear Logs
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Logs -->
+        <div class="glass-card logs-panel">
+          <div class="card-header">
+            <h2><i class="fas fa-terminal"></i> Live System Logs</h2>
+            <span class="pulse-icon"></span>
+          </div>
+          <div id="logs-container" class="logs-content">
+            <div class="log-entry system">Initializing Hinata Dashboard...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Tables Row -->
+      <section class="data-grid">
+        <!-- Registered Users -->
+        <div class="glass-card data-panel">
+          <div class="card-header">
+            <h2><i class="fas fa-user-friends"></i> Registered Users</h2>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Telegram ID</th>
+                  <th>Full Name</th>
+                  <th>Username</th>
+                  <th>Joined At</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body">
+                <tr><td colspan="4" class="loading">Fetching users...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Active Groups -->
+        <div class="glass-card data-panel">
+          <div class="card-header">
+            <h2><i class="fas fa-users-cog"></i> Managed Groups</h2>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Group ID</th>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Added At</th>
+                </tr>
+              </thead>
+              <tbody id="groups-table-body">
+                <tr><td colspan="4" class="loading">Fetching groups...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Banned Users -->
+        <div class="glass-card data-panel">
+          <div class="card-header">
+            <h2><i class="fas fa-user-slash"></i> Globally Banned</h2>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="banned-table-body">
+                <tr><td colspan="2" class="loading">Fetching...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="glass-footer">
+      <p>© 2026 Shawon Codes | Powered by Hinata AI Engine</p>
+    </footer>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>

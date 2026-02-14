@@ -1,0 +1,45 @@
+2026-02-13 21:03:33,432 [INFO] Web Dashboard Started
+2026-02-13 21:03:34,240 [INFO] Hinata Initialized
+2026-02-13 21:03:35,878 [INFO] HTTP Request: POST https://api.telegram.org/bot7537529456:AAF8Mwo8TXxJbo4Sf1Qm34necnAfb38d1Hc/getMe "HTTP/1.1 401 Unauthorized"
+2026-02-13 21:03:35,883 [ERROR] Task exception was never retrieved
+future: <Task finished name='Task-3' coro=<start_bot() done, defined at C:\Users\shaun\Downloads\Telegram Desktop\New folder\bot.py:764> exception=InvalidToken('The token `7537529456:AAF8Mwo8TXxJbo4Sf1Qm34necnAfb38d1Hc` was rejected by the server.')>
+Traceback (most recent call last):
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\_bot.py", line 591, in initialize
+    await self.get_me()
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\ext\_extbot.py", line 1706, in get_me
+    return await super().get_me(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\_bot.py", line 381, in decorator
+    result = await func(self, *args, **kwargs)  # skipcq: PYL-E1102
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\_bot.py", line 736, in get_me
+    result = await self._post(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\_bot.py", line 469, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\ext\_extbot.py", line 325, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\_bot.py", line 497, in _do_post
+    return await request.post(
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\request\_baserequest.py", line 168, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\request\_baserequest.py", line 326, in _request_wrapper
+    raise InvalidToken(message)
+telegram.error.InvalidToken: Unauthorized
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\shaun\Downloads\Telegram Desktop\New folder\bot.py", line 797, in start_bot
+    await app.initialize()
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\ext\_application.py", line 399, in initialize
+    await self.bot.initialize()
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\ext\_extbot.py", line 271, in initialize
+    await super().initialize()
+  File "C:\Users\shaun\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\telegram\_bot.py", line 593, in initialize
+    raise InvalidToken(f"The token `{self._token}` was rejected by the server.") from exc
+telegram.error.InvalidToken: The token `7537529456:AAF8Mwo8TXxJbo4Sf1Qm34necnAfb38d1Hc` was rejected by the server.
